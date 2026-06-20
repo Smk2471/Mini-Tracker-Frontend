@@ -1,0 +1,25 @@
+<div class="filter-bar">
+  <div class="filter-buttons">
+    @for (f of filters; track f.value) {
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="taskService.statusFilter() === f.value"
+        (click)="selectFilter(f.value)"
+      >
+        {{ f.label }}
+        <span class="count">
+          {{ f.value === 'all' ? taskService.counts().all : f.value === 'open' ? taskService.counts().open : taskService.counts().completed }}
+        </span>
+      </button>
+    }
+  </div>
+
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Search by title..."
+    [(ngModel)]="searchInput"
+    (ngModelChange)="onSearchChange()"
+  />
+</div>

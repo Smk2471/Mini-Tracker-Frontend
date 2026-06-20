@@ -1,0 +1,48 @@
+<form class="task-form" (ngSubmit)="onSubmit()" #form="ngForm">
+  <h2>New Task</h2>
+
+  <div class="field">
+    <label for="title">Title <span class="required">*</span></label>
+    <input
+      id="title"
+      name="title"
+      type="text"
+      [(ngModel)]="title"
+      placeholder="e.g. Write project README"
+      [class.invalid]="titleError()"
+      maxlength="120"
+    />
+    @if (titleError()) {
+      <p class="error-text">{{ titleError() }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      name="description"
+      [(ngModel)]="description"
+      placeholder="Optional details..."
+      rows="2"
+      maxlength="500"
+    ></textarea>
+  </div>
+
+  <div class="field">
+    <label for="priority">Priority</label>
+    <select id="priority" name="priority" [(ngModel)]="priority">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+
+  @if (submitError()) {
+    <p class="error-text">{{ submitError() }}</p>
+  }
+
+  <button type="submit" [disabled]="submitting()">
+    {{ submitting() ? 'Adding...' : 'Add Task' }}
+  </button>
+</form>

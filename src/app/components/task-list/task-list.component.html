@@ -1,0 +1,21 @@
+@if (taskService.loading()) {
+  <div class="state-message">Loading tasks...</div>
+} @else if (taskService.error()) {
+  <div class="state-message error">{{ taskService.error() }}</div>
+} @else if (taskService.tasks().length === 0) {
+  <div class="state-message empty">
+    <p class="empty-title">No tasks yet</p>
+    <p class="empty-subtitle">Create your first task above to get started.</p>
+  </div>
+} @else if (taskService.filteredTasks().length === 0) {
+  <div class="state-message empty">
+    <p class="empty-title">No matching tasks</p>
+    <p class="empty-subtitle">Try a different filter or search term.</p>
+  </div>
+} @else {
+  <div class="task-list">
+    @for (task of taskService.filteredTasks(); track task.id) {
+      <app-task-item [task]="task" />
+    }
+  </div>
+}

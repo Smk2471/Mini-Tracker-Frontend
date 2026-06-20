@@ -1,0 +1,35 @@
+<div class="task-card" [class.completed]="task.status === 'completed'">
+  <button
+    class="check-circle"
+    [class.checked]="task.status === 'completed'"
+    (click)="toggleComplete()"
+    [disabled]="busy()"
+    [attr.aria-label]="task.status === 'open' ? 'Mark complete' : 'Mark open'"
+  >
+    @if (task.status === 'completed') {
+      <span>&#10003;</span>
+    }
+  </button>
+
+  <div class="task-content">
+    <div class="task-header">
+      <h3 class="task-title">{{ task.title }}</h3>
+      <span class="priority-badge" [attr.data-priority]="task.priority">{{ task.priority }}</span>
+    </div>
+
+    @if (task.description) {
+      <p class="task-description">{{ task.description }}</p>
+    }
+
+    <div class="task-meta">
+      <span class="status-pill" [class.status-open]="task.status === 'open'" [class.status-completed]="task.status === 'completed'">
+        {{ task.status === 'open' ? 'Open' : 'Completed' }}
+      </span>
+      <span class="task-date">Created {{ formatDate(task.createdAt) }}</span>
+    </div>
+  </div>
+
+  <button class="delete-btn" (click)="deleteTask()" [disabled]="busy()" aria-label="Delete task">
+    &#10005;
+  </button>
+</div>
